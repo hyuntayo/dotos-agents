@@ -1,0 +1,19 @@
+/* Smoked glass: organic refracted light; one continuous surface behind the page. */
+.v-atmosphere{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;contain:strict;background:#090b0f}
+.v-atmosphere-material{position:absolute;inset:calc(-48px - 6%) calc(-40px - 6%);opacity:0;transition:opacity 1.2s ease;will-change:transform}
+.v-atmosphere[data-ready] .v-atmosphere-material{opacity:.84}
+.v-atmosphere picture,.v-atmosphere img{display:block;width:100%;height:100%}
+.v-atmosphere img{object-fit:cover;object-position:50% 50%}
+.v-atmosphere-flow{position:absolute;inset:0;display:block;width:100%;height:100%;opacity:0;transition:opacity 1s ease;pointer-events:none}
+.v-atmosphere[data-flow-ready] .v-atmosphere-flow{opacity:1}
+.v-atmosphere[data-flow-failed] .v-atmosphere-flow{opacity:0;transition:none}
+.v-atmosphere-tone{position:absolute;inset:0;mix-blend-mode:color;opacity:.24}
+.v-atmosphere-shade{position:absolute;inset:0;background:linear-gradient(180deg,#090b0f66,transparent 28%,#090b0f26 76%,#090b0f66),linear-gradient(90deg,#090b0f55,transparent 31%,transparent 68%,#090b0f22)}
+.v-atmosphere:not([data-active]) .v-atmosphere-material{will-change:auto}
+.visual-site[data-motion=off] .v-atmosphere-material,.visual-site[data-motion=off] .v-atmosphere-flow{transition:none}
+@media(max-width:760px){
+  .v-atmosphere-material{inset:calc(-40px - 6%) calc(-32px - 6%)}
+  .v-atmosphere[data-ready] .v-atmosphere-material{opacity:.72}
+  .v-atmosphere-shade{background:linear-gradient(180deg,#090b0f66,transparent 35%,#090b0f55),linear-gradient(90deg,#090b0f66,transparent 75%)}
+}
+@media(prefers-reduced-motion:reduce){.v-atmosphere-material{transition:none;will-change:auto}}

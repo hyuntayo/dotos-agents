@@ -1,0 +1,15 @@
+.dotos-site .os-site-header .os-wordmark,.dotos-site .os-footer .os-wordmark,
+.welcome-guide .welcome-guide-brand .os-wordmark,.os-workspace .workspace-logo .os-wordmark{font-family:var(--font-display);font-weight:800;letter-spacing:-.06em}
+.dotos-site .os-wordmark .os-wordmark-os,.welcome-guide .os-wordmark .os-wordmark-os,.os-workspace .os-wordmark .os-wordmark-os{font-weight:inherit}
+.dotos-site .companion-hero h1{font-family:var(--font-display);font-weight:650;letter-spacing:-.045em;line-height:1.04}
+.dotos-site .watch-heading h2,.dotos-site .os-section-heading h2,.dotos-site .os-network h2,
+.dotos-site .os-token-right h2,.dotos-site .os-questions h2,.dotos-site .os-final-cta h2{font-family:var(--font-display);font-weight:650;letter-spacing:-.035em}
+.app.os-workspace .workspace-main :is(h1,h2,h3){font-family:var(--font-display)}
+.dotos-site .companion-hero-word{letter-spacing:-.065em}
+.dotos-site .watch-price-input,.dotos-site .watch-quote>output{font-variant-numeric:tabular-nums;letter-spacing:-.045em}
+.dotos-site .watch-playhead,.dotos-site .watch-threshold{stroke-dasharray:none}
+.dotos-site .watch-playhead{opacity:.4}
+.os-workspace .workspace-alert-count{position:absolute;top:0;right:0;display:grid;place-items:center;min-width:14px;height:14px;padding:0 3px;border-radius:3px;background:var(--accent);color:var(--accent-ink,#fff);font:8px var(--font-mono);line-height:1}
+.os-workspace span.w-unread-dot{width:2px;height:11px;border-radius:0;align-self:center}
+.os-workspace .workspace-status-pill>i,.os-workspace .workspace-wallet>i,
+.os-workspace .workspace-alert-link>i,.os-workspace .tag>i{display:none!important}

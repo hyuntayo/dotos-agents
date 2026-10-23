@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
+  <pattern id="brush" width="192" height="24" patternUnits="userSpaceOnUse">
+    <path stroke="#738568" stroke-opacity=".27" d="M0 .5H192M0 10.5H71M80 10.5H192M0 18.5H192"/>
+    <path stroke="#fff" stroke-opacity=".5" d="M0 4.5H192M0 15.5H130M138 15.5H192M0 22.5H192"/>
+  </pattern>
+  <rect width="192" height="192" fill="url(#brush)"/>
+</svg>

@@ -1,0 +1,83 @@
+.header-guide { display: inline-flex; align-items: center; gap: 7px; padding: 9px 12px; min-height: 40px; border: 1px solid #c5ccbc; border-radius: 3px; background: transparent; color: #f4f3ef; font: 500 11px var(--font-ui); cursor: pointer; }
+.header-guide:hover { background: #e0e5d7; }
+.station-mobile-guide { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 20px; padding: 17px 24px; border: 0; border-top: 1px solid #c7cebd; color: #f4f3ef; background: transparent; font: 12px var(--font-ui); text-align: left; cursor: pointer; }
+.welcome-guide { position: fixed; inset: 0; margin: 0; padding: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; border-radius: 0; box-shadow: none; overflow: hidden; color: #f4f3ef; background: #000000; font: 400 14px/1.5 var(--font-ui); animation: intro-arrive .4s ease both; }
+.welcome-guide::backdrop { background: #000000; }
+.welcome-guide[data-startup] { animation: none; }
+.welcome-guide[data-leaving] { animation: none; opacity: 0; transition: opacity .32s ease; pointer-events: none; }
+.welcome-guide-stage { position: absolute; inset: 0; isolation: isolate; overflow: hidden; display: grid; place-items: center; background: #000; }
+.welcome-guide-fill { position: absolute; z-index: 0; inset: 0; background: radial-gradient(ellipse 160px 210px at 100% 5%,#183766aa,transparent),radial-gradient(ellipse 160px 230px at 0 96%,#10265399,transparent); pointer-events: none; }
+/* Fade the actual frame edges into one viewport background. Applying a mask to
+   a full-size contain box leaves the inset MP4 edges visible on wide screens.
+   Keep the source proportions so headings and characters never get cropped. */
+.welcome-guide video { position: relative; z-index: 1; display: block; width: min(100vw,calc(100dvh * 16 / 9)); height: min(100dvh,calc(100vw * 9 / 16)); object-fit: contain; background: transparent; mix-blend-mode: lighten; mask-image: linear-gradient(to right,transparent,#000 5%,#000 95%,transparent),linear-gradient(to bottom,transparent,#000 5%,#000 95%,transparent); mask-composite: intersect; }
+.welcome-guide-stage[data-portrait] video { width: min(100vw,calc(100dvh * 9 / 16)); height: min(100dvh,calc(100vw * 16 / 9)); }
+.welcome-guide-sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.welcome-guide-top,.welcome-guide-bottom { position: absolute; z-index: 3; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px clamp(24px,4.5vw,76px); }
+.welcome-guide-top { top: 0; padding-top: max(24px,env(safe-area-inset-top)); }
+.welcome-guide-bottom { bottom: 0; padding-bottom: max(24px,env(safe-area-inset-bottom)); }
+.welcome-guide-brand { display: flex; align-items: center; gap: 10px; font-size: 23px; font-weight: 500; letter-spacing: -.04em; }
+.welcome-guide-brand svg { width: 25px; height: 25px; }
+.welcome-guide button,.welcome-guide-launch { color: inherit; font: inherit; border: 0; border-radius: 0; background: transparent; cursor: pointer; }
+.welcome-guide-skip { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 0 8px 12px; color: #a5a9b2 !important; font-size: 13px !important; }
+.welcome-guide button:hover,.welcome-guide-launch:hover { color: #77a4ff; }
+.welcome-guide-tools { display: flex; align-items: center; gap: 18px; }
+.welcome-guide-play { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 0; }
+.welcome-guide-read { min-height: 44px; font-size: 12px !important; padding: 8px 0; color: #a5a9b2 !important; }
+.welcome-guide-chapters { display: flex; align-items: center; gap: 3px; position: absolute; left: 50%; transform: translateX(-50%); }
+.welcome-guide-chapters button { min-width: 40px; height: 44px; padding: 0 4px; }
+.welcome-guide-chapters button > span { display: block; position: relative; width: 100%; height: 2px; background: #f4f3ef25; }
+.welcome-guide-chapters i { display: block; height: 100%; background: #77a4ff; }
+.welcome-guide-chapters button[aria-current] > span { background: #77a4ff45; }
+.welcome-guide-launch { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; text-decoration: none; font-size: 13px; font-weight: 500; white-space: nowrap; }
+.welcome-guide button:disabled { opacity: .3; cursor: default; }
+.welcome-guide button:focus-visible,.welcome-guide a:focus-visible,.header-guide:focus-visible { outline: 2px solid #77a4ff; outline-offset: 5px; border-radius: 2px; }
+.welcome-guide[data-reading] .welcome-guide-stage { visibility: hidden; }
+.welcome-guide[data-reading] .welcome-guide-chapters { visibility: hidden; }
+.welcome-guide-transcript { position: absolute; inset: 90px 0 88px; overflow-y: auto; overscroll-behavior: contain; padding: 30px max(24px,calc((100vw - 1050px)/2)) 70px; background: #000000; animation: intro-copy .45s ease both; }
+.welcome-guide-eyebrow { font: 10px 'JetBrains Mono',monospace; letter-spacing: .1em; color: #93969e; }
+.welcome-guide-transcript h3 { margin: 20px 0 42px; font-size: clamp(32px,4.5vw,62px); line-height: 1.08; font-weight: 500; letter-spacing: -.05em; }
+.welcome-guide-transcript ol { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 58px; list-style: none; padding: 0; margin: 0; }
+.welcome-guide-transcript li { display: flex; align-items: baseline; gap: 18px; }
+.welcome-guide-transcript li > span { font: 11px 'JetBrains Mono',monospace; color: #787f8a; }
+.welcome-guide-transcript h4 { margin: 0 0 10px; font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+.welcome-guide-transcript p { margin: 0; max-width: 450px; color: #a5a9b2; font-size: 16px; line-height: 1.7; }
+.welcome-guide[data-failed] video { display: none; }
+.welcome-guide-fallback { position: absolute; left: max(24px,calc((100vw - 1120px)/2)); top: 50%; transform: translateY(-50%); max-width: 700px; padding-right: 24px; }
+.welcome-guide-fallback h3 { margin: 0 0 26px; white-space: pre-line; font-size: clamp(38px,6vw,76px); line-height: 1.1; font-weight: 500; letter-spacing: -.05em; }
+.welcome-guide-fallback p { max-width: 600px; color: #a5a9b2; font-size: clamp(16px,2vw,23px); line-height: 1.6; }
+.welcome-guide-fallback .welcome-guide-error { font-size: 13px; margin-top: 35px; }
+@keyframes intro-arrive { from { opacity: 0; } to { opacity: 1; } }
+@keyframes intro-copy { from { opacity: 0; translate: 0 18px; } to { opacity: 1; translate: 0 0; } }
+@media(max-width:760px) {
+  .header-guide { padding: 8px; min-width: 36px; min-height: 36px; }
+  .header-guide > span:not(.svg-icon) { display: none; }
+  .welcome-guide-top,.welcome-guide-bottom { padding-inline: 20px; gap: 12px; }
+  .welcome-guide-brand { font-size: 21px; gap: 8px; }
+  .welcome-guide-brand svg { width: 22px; height: 22px; }
+  .welcome-guide-tools { gap: 8px; }
+  .welcome-guide-chapters { bottom: 73px; gap: 3px; }
+  .welcome-guide-chapters button { min-width: 36px; }
+  .welcome-guide-launch { font-size: 12px; gap: 7px; }
+  .welcome-guide-play { min-width: 32px; }
+  .welcome-guide-read { font-size: 11px !important; }
+  .welcome-guide-transcript { inset-block: 84px 90px; padding-top: 12px; }
+  .welcome-guide-transcript ol { grid-template-columns: 1fr; gap: 26px; }
+  .welcome-guide-transcript h3 { margin-bottom: 32px; }
+  .welcome-guide-transcript h4 { font-size: 18px; }
+  .welcome-guide-transcript p { font-size: 15px; }
+}
+@media(max-width:520px) { .header-guide { display: none; } }
+@media(max-height:500px) and (min-aspect-ratio:1/1) {
+  .welcome-guide-top,.welcome-guide-bottom { padding-block: 12px; }
+  .welcome-guide-brand { font-size: 18px; }
+}
+@media(prefers-reduced-motion:reduce) { .welcome-guide,.welcome-guide-transcript { animation: none; } .welcome-guide[data-leaving] { transition: none; } }
+
+/* DotOS player chrome matches the graphite/coral landing. */
+.welcome-guide-launch{background:#77a4ff;color:#151719!important;border-radius:5px;padding:10px 15px}.welcome-guide-launch:hover{background:#ff997e}.welcome-guide .os-wordmark{font-size:24px}.welcome-guide-brand .os-wordmark>svg{color:#77a4ff}.welcome-guide-chapters button>span{background:#ffffff26}.welcome-guide-transcript li{border-top:1px solid #ffffff14;padding-top:19px}
+@media(max-width:760px){.welcome-guide .os-wordmark{font-size:21px}.welcome-guide-launch{padding-inline:10px}}
+
+/* Brand-board presentation. */
+.welcome-guide-launch{border-radius:100px;background:#f4f4f2;color:#0b0d11!important;padding:11px 18px;font-weight:650}.welcome-guide-launch:hover{background:#fff}.welcome-guide .os-wordmark{font-weight:800;font-size:28px;letter-spacing:-1.4px}.welcome-guide .os-wordmark-os{font-weight:800}.welcome-guide-transcript li{border:1px solid #252c39;border-radius:18px;background:#0d0f14;padding:20px}.welcome-guide-eyebrow{color:#93a8c9}.welcome-guide-transcript h3{font-weight:650}.welcome-guide-transcript h4{font-weight:600}.welcome-guide-transcript p{color:#8d9bb0}.welcome-guide-chapters i{background:#80aaff}.welcome-guide-fallback{color:#f2f5fc}.welcome-guide-skip{color:#8c98ab!important}
+@media(max-width:760px){.welcome-guide .os-wordmark{font-size:24px}.welcome-guide-launch{padding:11px 13px}.welcome-guide-transcript li{padding:18px}}

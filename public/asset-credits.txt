@@ -1,0 +1,116 @@
+DOTOS / ASSET CREDITS
+
+Current fonts: Manrope (headings), Onest (UI) and JetBrains Mono (data and labels).
+Official Google Fonts sources:
+https://github.com/google/fonts/tree/main/ofl/manrope
+https://github.com/google/fonts/tree/main/ofl/onest
+https://github.com/google/fonts/tree/main/ofl/jetbrainsmono
+SIL Open Font License 1.1. Local copies: /fonts/Manrope-OFL.txt,
+/fonts/Onest-OFL.txt and /fonts/JetBrainsMono-OFL.txt.
+All are variable fonts, hosted locally, with Latin and Cyrillic coverage.
+The video guide retains its embedded typography; controls use the current fonts.
+Previous fonts/video assets remain archived.
+On October 24 the owner requested removal of small decorative interface/logo dots.
+The wordmark is now text only; the small internal mark is a native SVG D monogram.
+The owner expressly retained the large spheres in the supplied banner.
+
+DotOS brand redesign (October 24, 2026): based on the two owner-provided images
+banner dotos.png and PFP dotos.png. Original image pixels are preserved at
+/brand/dotos-banner.png and /brand/dotos-pfp.png. The owner supplied these
+assets as project design references; no third-party authorship is asserted.
+Original code-native layout uses their colors. The earlier four-orb SVG mark is superseded.
+The social card composes the provided banner with locally rendered type.
+The v10 guide uses a pure black stage, blue accents and the original mascots.
+
+Earlier DotOS redesign (October 23, 2026): original layout, 9-dot mark and OS window UI.
+Human-designed interface references: https://www.raycast.com/, https://nova.app/,
+https://puter.com/. Their visual assets and website code were not copied.
+Earlier DotOS type: Manrope by Mikhail Sharanda, variable font from the official Google Fonts repo:
+https://github.com/google/fonts/tree/main/ofl/manrope
+SIL Open Font License 1.1; local licence: /fonts/Manrope-OFL.txt.
+New coins icon: Lucide contributors, ISC, official lucide-icons repository.
+The earlier social card was rendered from HTML/CSS and an existing original mascot.
+
+Current mascots: original mesh-based models created for Dotmates.
+Source: src/components/dotmate/models.ts
+Four GLBs: public/models/{bob,max,iggy,nova}.glb
+Twenty transparent renders: public/models/renders/
+Rendered with Three.js (MIT), geometry and materials are code-native.
+These original mesh models use no external textures or raster inputs.
+
+Legacy robot illustrations (earlier design): Bottts by Pablo Stanley, remixed through DiceBear 9.x.
+Source: https://www.dicebear.com/styles/bottts/
+Original: https://bottts.com/
+License: Free for personal and commercial use.
+Downloaded SVGs are stored in /mates. Their embedded metadata is preserved.
+
+Outline icons: Lucide contributors.
+Source: https://github.com/lucide-icons/lucide/tree/main/icons
+License: ISC. https://lucide.dev/license
+Copyright (c) Lucide contributors. Permission to use, copy, modify, and/or
+distribute this software for any purpose with or without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in
+all copies. THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
+WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER
+RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE
+USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Technical landing icons: Iconoir contributors.
+Source: https://github.com/iconoir-icons/iconoir
+License: MIT.
+
+Pixel icons: pixelarticons by Gerrit Halfmann. MIT license.
+https://github.com/halfmage/pixelarticons
+Existing SVG brand assets: Solana, Jupiter, Kamino, Meteora, Pump.fun, Phantom,
+Solflare and Backpack. These marks belong to their respective owners.
+Their inclusion illustrates the integrations described in the product concept.
+
+Landing type: Chakra Petch and IBM Plex Mono, distributed through Fontsource.
+Earlier workspace type: Chakra Petch and IBM Plex Mono, distributed through Fontsource.
+Legacy type: Bricolage Grotesque and DM Mono.
+Distributed locally through Fontsource. SIL Open Font License 1.1.
+
+Animated material background:
+Original CSS paper and satin metal surfaces with slow light reflections.
+Original SVG paper-grain.svg and brushed-metal.svg texture tiles.
+Full sources and design notes: /background/CREDITS.md.
+
+Visual references for the original mascots and interface design:
+https://teenage.engineering/products/ep-133
+https://play.date/
+https://theme-ui.com/
+https://tanstack.com/query/latest
+https://21st.dev/
+https://kenney.itch.io/
+
+To refresh the downloaded SVGs: node scripts/fetch-assets.mjs
+
+DotOS intro v7: original 40-second 1080p60 landscape/portrait animations, using the existing project mascot models and new DotOS UI composition. No external footage or audio. Full credits: /guide/CREDITS.md.
+
+DotOS October 2026 interaction update:
+Original crew, watch-flow and monitoring-table UI using existing models and fonts.
+No external illustration, component source or new animation library was copied.
+Design references: 21st.dev community, Aceternity tabs, Magic UI animated beam,
+shadcn.io tables, Theme UI, TanStack Query and Sokpop's Stacklands on itch.io.
+Exact reference links and implementation notes: README.md, Interaction references.
+
+DotOS graphite background: original static dotos-graphite.svg noise tile and CSS
+surface/reflection layers. References: Aceternity Spotlight New and Noise Background.
+No external artwork or component source is included. Full notes: /background/CREDITS.md.
+
+Current DotOS landing: restored original animated mascot background, live BOB hero
+and original interactive price-watch example. Hero/scroll reference: Aceternity
+Container Scroll and Hero Parallax. Input/result reference: Magic UI Code Comparison.
+Inspectable rows: shadcn.io tables and TanStack Query devtools. Interaction reference:
+Mini Metro by DPC Labs on itch.io. Existing models and layered WebPs are reused.
+No component code or game artwork was copied. Exact URLs: README.md.
+
+Scroll refinement: original line-by-line heading reveals, perspective panel
+entrances, staggered table rows, velocity-reactive background mascots and a final
+crew arrival. Existing models, textures and fonts are unchanged. Motion uses
+the existing motion/react dependency. References: Aceternity Container Scroll,
+Magic UI Scroll Based Velocity and the primary Motion useScroll documentation.
+Exact URLs and validation: README.md.
