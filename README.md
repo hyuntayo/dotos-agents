@@ -1,74 +1,107 @@
-# DotOS frontend
+# DotOS Agents
 
-The React interface for [DotOS](https://dotos.si): a workspace for read-only Robinhood Chain monitoring, with four original animated companions.
+The AI companion layer extracted from [DotOS](https://dotos.si). **No frontend.** Chat with BOB, MAX, IGGY and NOVA, give them scoped memory, and analyze saved responsibilities through OpenRouter.
 
-[Live site](https://dotos.si) · [User documentation](https://dotos.si/docs) · [Official X](https://x.com/dotmates)
+The OpenRouter adapter and context/prompt functions are taken from the application. A small standalone session wrapper makes them runnable without the website, database or production infrastructure. This repository is not the complete hosted backend.
 
-## What is included
+## Quick start
 
-- The responsive landing page, original mascot rendering code, scroll animations and introductory video.
-- Workspace screens for responsibilities, skills, activity, settings and AI conversations.
-- Searchable user documentation and the access/privacy page.
-- Shared chain definitions, catalog and monitoring types.
-- Public images, models, fonts and icons with attribution notices.
-
-This is the **frontend source**, not the hosted service. It does not include the backend, production deployment configuration, credentials, databases, user records or private project documents. The `/app` screens need a compatible API to save data, authenticate wallets, read chain observations, send notifications or generate AI replies. The frontend alone does not provide those services. Static landing content and Docs can be explored without an API; live network statistics will be unavailable.
-
-## Run locally
-
-Use Node.js 24 or newer and npm.
+Requires **Node.js 24+**. There are no external runtime dependencies.
 
 ```sh
-npm ci
-npm run dev
+git clone https://github.com/hyuntayo/dotos-agents.git
+cd dotos-agents
+cp .env.example .env
 ```
 
-Open `http://localhost:5173`. On Windows PowerShell, use `npm.cmd` if script execution policy blocks `npm.ps1`.
+On PowerShell, use `Copy-Item .env.example .env`. Put **your own** OpenRouter key in `.env`, then:
 
 ```sh
-npm run build
-npm run preview
+npm start
+npm start -- max
 ```
 
-Vite writes the production frontend to `dist/`. Configure your web host to serve `index.html` for application routes such as `/docs` and `/app/tasks`. Serve `/api/*` through your own compatible backend; Vite preview is a static preview, not an API server.
+Choose `bob`, `max`, `iggy` or `nova`. In the terminal chat, `/task <instructions>` analyzes a responsibility, `/clear` clears that agent's chat, and `/exit` closes the session. `.env` is ignored by Git. Never commit credentials.
 
-## API integration
+`OPENROUTER_MODEL` defaults to `openrouter/free`. Availability and provider quotas can change. Selecting a paid model may incur charges in your own OpenRouter account; the library does not enforce a monetary budget.
 
-Development requests to `/api` are proxied to `http://127.0.0.1:8787`. Override the target in the process environment if needed:
+## Use as a module
 
-```sh
-DOTOS_API_TARGET=http://127.0.0.1:9000 npm run dev
+```js
+import { createAgentSession } from './src/index.mjs'
+
+const session = createAgentSession({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  model: process.env.OPENROUTER_MODEL || 'openrouter/free',
+  dailyLimit: 50,
+})
+
+try {
+  session.setMemory('bob', {
+    tokens: ['ETH'],
+    constraints: ['Explain missing data. Do not invent a price.'],
+  })
+  const task = session.addTask('bob', 'Explain what is needed to watch ETH above a threshold')
+  console.log((await session.analyze(task.id)).content)
+  console.log((await session.chat('bob', 'What are the limitations?')).content)
+} finally {
+  session.close()
+}
 ```
 
-PowerShell:
+## Agents
 
-```powershell
-$env:DOTOS_API_TARGET = 'http://127.0.0.1:9000'
-npm.cmd run dev
-```
-
-The request/response contract lives in `src/app/api/client.ts` and `src/app/api/types.ts`. The client uses same-origin session cookies, so your backend must implement authentication, origin checks, authorization, rate limiting and validation. Do not point a development proxy at the production service to create test data. Never put provider credentials into `VITE_*` variables or browser code.
-
-## Source map
-
-| Path | Purpose |
+| Agent | Context specialty |
 | --- | --- |
-| `src/landing/visual/` | Landing scenes and interactive background |
-| `src/components/dotmate/` | Original mascot models, rendering and animation |
-| `src/app/` | Workspace UI and API client |
-| `src/pages/DocsPage.tsx` | Searchable documentation UI |
-| `src/content/docs.ts` | Documentation content |
-| `shared/` | Shared network definitions and types |
-| `public/` | Public static assets and asset notices |
+| BOB | Portfolio and prices |
+| MAX | Pons launches |
+| IGGY | Wallet activity |
+| NOVA | Creator fees |
 
-The current interface targets Robinhood Chain Mainnet (4663). It does not implement trading, custody, fee claims or a public developer API. Deployment-specific limits described in the user documentation refer to the official hosted service, not guarantees made by this source distribution.
+These are conversational roles, **not blockchain execution tools**. They cannot fetch live prices, execute transactions, trade, sign, move funds or run scheduled monitoring. Task analysis explains supplied instructions; it does not activate a monitor. Cached observation summaries can be passed to the exported `companionPrompt` function by an integrating backend.
 
-## Contributions
+## API
 
-Keep changes focused and explain the behavior they improve. Run `npm run build` and `npm run lint`. For visual changes, check phone and desktop layouts, keyboard navigation and reduced-motion settings. Do not add real wallet records, screenshots of private workspaces, credentials or production test calls.
+- `agents()` returns copies of the four agent profiles.
+- `setMemory(id, fields)` updates wallets, tokens, protocols, constraints or risk text. Memory is user-provided context, not system authority.
+- `chat(id, message)` sends a message with the agent's saved context and recent conversation.
+- `addTask(id, instructions)` saves a task in this session; `analyze(taskId)` requests analysis and stores a successful result.
+- `history(id)`, `clearHistory(id)` and `tasks()` inspect or clear session data.
+- `usage()` returns the session's current UTC-day attempt counter.
+- `close()` cancels the provider and prevents late replies from being saved.
+- `createOpenRouter(options)`, `companionPrompt(...)` and `companionContextFingerprint(...)` expose the extracted lower-level building blocks.
 
-## Assets and licensing
+## Boundaries and safeguards
 
-Third-party assets retain their own licenses. Font license files are in `public/fonts/`; icon and other credits are in `public/asset-credits.txt`. Brand names, logos and project images are not a grant to impersonate the official service.
+History, memory, tasks and quotas are **in memory** and reset on process restart. Different sessions are isolated. The default 50 attempts/day limit applies per session instance; it is not a persistent, cross-process quota or the hosted service's global allowance. Failed attempts count. There are no automatic retries.
 
-Original source code is licensed under the [MIT License](LICENSE), copyright 2026 hyuntayo. The MIT grant excludes the DotOS name, logos, branding images, rendered mascot images, models distributed as asset files, videos and background artwork. Those project assets are included for viewing and running this interface; their inclusion does not grant a separate license to redistribute or reuse them. Third-party fonts, icons and other assets remain subject to their original licenses. The original procedural mascot source code is covered by MIT.
+The adapter limits provider responses to 1 MiB, requests at most 1,400 output tokens and applies a 45-second timeout. Optional reasoning is disabled so it does not consume the visible response budget. Empty, invalid, oversized, unauthorized and rate-limited replies surface as errors. Context edits, chat clearing and shutdown invalidate stale in-flight answers. One request per agent can be active at a time.
+
+The prompt includes up to 12 recent messages and bounded cached monitoring summaries. The wrapper retains 24 messages per agent and up to 40 tasks. It does not persist failures as successful conversations. AI output may still be inaccurate; prompt instructions are not a security sandbox.
+
+If exposing this module as a service, implement your own authentication, authorization, durable storage, global quotas and request validation. Keep the OpenRouter key server-side. Wallets and task context supplied to the model are sent to OpenRouter and its selected provider. No production keys, user data, deployment scripts, frontend or branded assets are included.
+
+## Tests
+
+```sh
+npm run check
+npm test
+```
+
+Tests inject a local provider stub. They do not need credentials, contact OpenRouter or spend credits. GitHub Actions runs them on each push and pull request.
+
+## Source layout
+
+```text
+src/openrouter.mjs        Extracted provider adapter, prompt and context fingerprint
+src/provider-response.mjs Bounded response reader
+src/validation.mjs        Shared error shape (dependency-free extraction)
+src/agents.mjs            Standalone session wrapper
+src/index.mjs             Public module exports
+examples/chat.mjs         Terminal chat and task analysis
+test/agents.test.mjs      Offline regression tests
+```
+
+## License
+
+MIT. Fork, modify and use the code with the copyright and license notice retained. DotOS is an independent project, not affiliated with Robinhood, Pons or OpenRouter. The repository previously contained frontend sources; those were removed from the current branch, while Git history is retained.

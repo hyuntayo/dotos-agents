@@ -1,6 +1,5 @@
 node_modules/
 dist/
-*.tsbuildinfo
 .env
 .env.*
 !.env.example
@@ -10,7 +9,6 @@ dist/
 *.dpapi
 *.key
 *.pem
-*.p12
 .local/
 data/
 artifacts/
